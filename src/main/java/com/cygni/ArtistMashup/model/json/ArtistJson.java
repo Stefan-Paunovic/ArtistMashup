@@ -15,12 +15,6 @@ public class ArtistJson {
     @JsonProperty("name")
     private String name;
 
-    @JsonProperty("release-groups")
-    private List<ReleaseGroupJson> releaseGroups;
-
-    @JsonProperty("life-span")
-    private LifeSpanJson lifeSpan;
-
     @JsonProperty("country")
     private String country;
 
@@ -29,6 +23,12 @@ public class ArtistJson {
 
     @JsonProperty("gender")
     private String gender;
+
+    @JsonProperty("life-span")
+    private LifeSpanJson lifeSpan;
+
+    @JsonProperty("release-groups")
+    private List<ReleaseGroupJson> releaseGroups;
 
     @JsonProperty("relations")
     private List<RelationJson> relations;

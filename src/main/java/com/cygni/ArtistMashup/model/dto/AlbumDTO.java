@@ -1,5 +1,6 @@
 package com.cygni.ArtistMashup.model.dto;
 
+import java.net.URL;
 import java.util.Objects;
 
 public class AlbumDTO {
@@ -8,7 +9,7 @@ public class AlbumDTO {
     private String title;
     private String type;
     private String releaseDate;
-    private String url;  //TODO COVER ART - BTY från string till URL ?
+    private URL coverURL;
 
     public AlbumDTO() {
     }
@@ -45,12 +46,12 @@ public class AlbumDTO {
         this.releaseDate = releaseDate;
     }
 
-    public String getUrl() {
-        return url;
+    public URL getCoverURL() {
+        return coverURL;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setCoverURL(URL coverURL) {
+        this.coverURL = coverURL;
     }
 
     @Override
@@ -62,12 +63,12 @@ public class AlbumDTO {
                 Objects.equals(title, albumDTO.title) &&
                 Objects.equals(type, albumDTO.type) &&
                 Objects.equals(releaseDate, albumDTO.releaseDate) &&
-                Objects.equals(url, albumDTO.url);
+                Objects.equals(coverURL, albumDTO.coverURL);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, type, releaseDate, url);
+        return Objects.hash(id, title, type, releaseDate, coverURL);
     }
 
     @Override
@@ -77,7 +78,7 @@ public class AlbumDTO {
                 ", title='" + title + '\'' +
                 ", type='" + type + '\'' +
                 ", releaseDate='" + releaseDate + '\'' +
-                ", url='" + url + '\'' +
+                ", coverURL=" + coverURL +
                 '}';
     }
 }

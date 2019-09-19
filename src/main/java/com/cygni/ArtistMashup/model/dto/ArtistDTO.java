@@ -7,11 +7,13 @@ public class ArtistDTO {
 
     private String id;
     private String name;
-    private LifeSpanDTO lifeSpan;
-    private String county;
+    private String country;
     private String type;
     private String gender;
-    private String description; //TODO WIKI
+    private boolean ended;
+    private String begin;
+    private String end;
+    private String description;
     private List<AlbumDTO> albums;
 
     public ArtistDTO() {
@@ -33,20 +35,12 @@ public class ArtistDTO {
         this.name = name;
     }
 
-    public LifeSpanDTO getLifeSpan() {
-        return lifeSpan;
+    public String getCountry() {
+        return country;
     }
 
-    public void setLifeSpan(LifeSpanDTO lifeSpan) {
-        this.lifeSpan = lifeSpan;
-    }
-
-    public String getCounty() {
-        return county;
-    }
-
-    public void setCounty(String county) {
-        this.county = county;
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     public String getType() {
@@ -63,6 +57,30 @@ public class ArtistDTO {
 
     public void setGender(String gender) {
         this.gender = gender;
+    }
+
+    public boolean isEnded() {
+        return ended;
+    }
+
+    public void setEnded(boolean ended) {
+        this.ended = ended;
+    }
+
+    public String getBegin() {
+        return begin;
+    }
+
+    public void setBegin(String begin) {
+        this.begin = begin;
+    }
+
+    public String getEnd() {
+        return end;
+    }
+
+    public void setEnd(String end) {
+        this.end = end;
     }
 
     public String getDescription() {
@@ -86,19 +104,21 @@ public class ArtistDTO {
         if (this == o) return true;
         if (!(o instanceof ArtistDTO)) return false;
         ArtistDTO artistDTO = (ArtistDTO) o;
-        return Objects.equals(id, artistDTO.id) &&
+        return ended == artistDTO.ended &&
+                Objects.equals(id, artistDTO.id) &&
                 Objects.equals(name, artistDTO.name) &&
-                Objects.equals(lifeSpan, artistDTO.lifeSpan) &&
-                Objects.equals(county, artistDTO.county) &&
+                Objects.equals(country, artistDTO.country) &&
                 Objects.equals(type, artistDTO.type) &&
                 Objects.equals(gender, artistDTO.gender) &&
+                Objects.equals(begin, artistDTO.begin) &&
+                Objects.equals(end, artistDTO.end) &&
                 Objects.equals(description, artistDTO.description) &&
                 Objects.equals(albums, artistDTO.albums);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, lifeSpan, county, type, gender, description, albums);
+        return Objects.hash(id, name, country, type, gender, ended, begin, end, description, albums);
     }
 
     @Override
@@ -106,10 +126,12 @@ public class ArtistDTO {
         return "ArtistDTO{" +
                 "id='" + id + '\'' +
                 ", name='" + name + '\'' +
-                ", lifeSpan=" + lifeSpan +
-                ", county='" + county + '\'' +
+                ", country='" + country + '\'' +
                 ", type='" + type + '\'' +
                 ", gender='" + gender + '\'' +
+                ", ended=" + ended +
+                ", begin='" + begin + '\'' +
+                ", end='" + end + '\'' +
                 ", description='" + description + '\'' +
                 ", albums=" + albums +
                 '}';
