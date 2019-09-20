@@ -15,12 +15,9 @@ import com.jayway.jsonpath.JsonPath;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,8 +35,9 @@ public class ArtistMashupController {
     @Autowired
     CoverArtArchiveService coverArtArchiveService;
 
-    @GetMapping("/{id}")
-    public ArtistDTO getArtist(@PathVariable("id") final String id) throws ArtistNotFoundException {
+    @GetMapping(path = "/{id}", produces = "application/json; charset=UTF-8")
+    @ResponseBody
+    public ResponseEntity<ArtistDTO> getArtist(@PathVariable("id") final String id) throws ArtistNotFoundException {
 
         //MusicBrainzService
         ArtistJson artistJson =
@@ -62,15 +60,15 @@ public class ArtistMashupController {
             artist.setEnd(artistJson.getLifeSpan().getEnd());
         }
 
-        //WikipediaService
+        //WikipediaService - Does not work anymore, reason: deprecated from musicBrainz
         ObjectMapper mapper = new ObjectMapper();
         String jsonArtistString = "";
         try {
             jsonArtistString = mapper.writeValueAsString(artistJson);
 
             List<String> urls =
-                    JsonPath.parse(jsonArtistString)//sätt wikipedia istället för BBC
-                            .read("$..relations[?(@.type == 'IMDb')].url.resource");
+                    JsonPath.parse(jsonArtistString)
+                            .read("$..relations[?(@.type == 'wikipedia')].url.resource");
 
             if(!urls.isEmpty()){
                 String path = urls.get(0);
@@ -99,6 +97,6 @@ public class ArtistMashupController {
             albums.add(album);
         }
         artist.setAlbums(albums);
-        return artist;
+        return ResponseEntity.ok(artist);
     }
 }
